@@ -375,6 +375,11 @@ parseTypeMismatch' conName tName expected actual =
       fail $ printf "When parsing the constructor %s of type %s expected %s but got %s."
                         conName tName expected actual
 
+conNotFoundFailTaggedObject :: String -> [String] -> String -> Parser fail
+conNotFoundFailTaggedObject t cs o =
+      fail $ printf "When parsing %s expected an Object with a tag field where the value is one of [%s], but got %s."
+                        t (intercalate ", " cs) o
+
 -- ToJSON/FromJSON instances. Some are defined by hand so that we have
 -- more control over the format.
 
@@ -500,7 +505,7 @@ instance FromJSON MetaValue where
                                case val_atBJ of {
                                  arg_atBK -> (MetaBlocks <$> parseJSON arg_atBK) }
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.MetaValue")
                                ["MetaMap", "MetaList", "MetaBool", "MetaString", "MetaInlines",
                                 "MetaBlocks"])
@@ -550,7 +555,7 @@ instance FromJSON CitationMode where
                          | (conKey_atBQ == T.pack "SuppressAuthor") -> pure SuppressAuthor
                          | (conKey_atBQ == T.pack "NormalCitation") -> pure NormalCitation
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.CitationMode")
                                ["AuthorInText", "SuppressAuthor", "NormalCitation"])
                               (T.unpack conKey_atBQ) }
@@ -697,7 +702,7 @@ instance FromJSON QuoteType where
                        _ | (conKey_atCd == T.pack "SingleQuote") -> pure SingleQuote
                          | (conKey_atCd == T.pack "DoubleQuote") -> pure DoubleQuote
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.QuoteType")
                                ["SingleQuote", "DoubleQuote"])
                               (T.unpack conKey_atCd) }
@@ -737,7 +742,7 @@ instance FromJSON MathType where
                        _ | (conKey_atCj == T.pack "DisplayMath") -> pure DisplayMath
                          | (conKey_atCj == T.pack "InlineMath") -> pure InlineMath
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.MathType")
                                ["DisplayMath", "InlineMath"])
                               (T.unpack conKey_atCj) }
@@ -822,7 +827,7 @@ instance FromJSON ListNumberStyle where
                          | (conKey_atCp == T.pack "LowerAlpha") -> pure LowerAlpha
                          | (conKey_atCp == T.pack "UpperAlpha") -> pure UpperAlpha
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.ListNumberStyle")
                                ["DefaultStyle", "Example", "Decimal", "LowerRoman",
                                 "UpperRoman", "LowerAlpha", "UpperAlpha"])
@@ -882,7 +887,7 @@ instance FromJSON ListNumberDelim where
                          | (conKey_atCv == T.pack "OneParen") -> pure OneParen
                          | (conKey_atCv == T.pack "TwoParens") -> pure TwoParens
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.ListNumberDelim")
                                ["DefaultDelim", "Period", "OneParen", "TwoParens"])
                               (T.unpack conKey_atCv) }
@@ -941,7 +946,7 @@ instance FromJSON Alignment where
                          | (conKey_atCB == T.pack "AlignCenter") -> pure AlignCenter
                          | (conKey_atCB == T.pack "AlignDefault") -> pure AlignDefault
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.Alignment")
                                ["AlignLeft", "AlignRight", "AlignCenter", "AlignDefault"])
                               (T.unpack conKey_atCB) }
@@ -990,7 +995,7 @@ instance FromJSON ColWidth where
                                  arg_atCL -> (ColWidth <$> parseJSON arg_atCL) }
                          | (conKey_atCJ == T.pack "ColWidthDefault") -> pure ColWidthDefault
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.ColWidth")
                                ["ColWidth", "ColWidthDefault"])
                               (T.unpack conKey_atCJ) }
@@ -1977,7 +1982,7 @@ instance FromJSON Inline where
                                          "Array")
                                         (valueConName other_atFR)
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.Inline")
                                ["Str", "Emph", "Underline", "Strong", "Strikeout",
                                 "Superscript", "Subscript", "SmallCaps", "Quoted", "Cite",
@@ -2525,7 +2530,7 @@ instance FromJSON Block where
                                         (valueConName other_atHh)
                          | (conKey_atGN == T.pack "Null") -> pure Null
                          | otherwise
-                         -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
+                         -> ((conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.Block")
                                ["Plain", "Para", "LineBlock", "CodeBlock", "RawBlock",
                                 "BlockQuote", "OrderedList", "BulletList", "DefinitionList",
