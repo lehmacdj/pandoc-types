@@ -91,6 +91,7 @@ import Data.Aeson hiding (Null)
 import qualified Data.Aeson.Encoding.Internal
 import qualified Data.Aeson.Types as Aeson
 import qualified Data.Aeson.Types
+import qualified Data.HashMap.Strict as H
 import qualified Data.Map as M
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -369,27 +370,27 @@ valueConName (Number _) = "Number"
 valueConName (Bool   _) = "Boolean"
 valueConName Null       = "Null"
 
-parseTypeMismatch' :: String -> String -> String -> String -> Parser fail
+parseTypeMismatch' :: String -> String -> String -> String -> Data.Aeson.Types.Parser fail
 parseTypeMismatch' conName tName expected actual =
       fail $ printf "When parsing the constructor %s of type %s expected %s but got %s."
                         conName tName expected actual
 
-conNotFoundFailTaggedObject :: String -> [String] -> String -> Parser fail
+conNotFoundFailTaggedObject :: String -> [String] -> String -> Data.Aeson.Types.Parser fail
 conNotFoundFailTaggedObject t cs o =
       fail $ printf "When parsing %s expected an Object with a tag field where the value is one of [%s], but got %s."
                         t (intercalate ", " cs) o
 
-noObjectFail :: String -> String -> Parser fail
+noObjectFail :: String -> String -> Data.Aeson.Types.Parser fail
 noObjectFail t o = fail $ printf "When parsing %s expected Object but got %s." t o
 
-lookupField :: (Value -> Parser a) -> String -> String
-                -> Object -> T.Text -> Parser a
+lookupField :: (Value -> Data.Aeson.Types.Parser a) -> String -> String
+                -> Object -> T.Text -> Data.Aeson.Types.Parser a
 lookupField pj tName rec obj key =
       case H.lookup key obj of
               Nothing -> unknownFieldFail tName rec (T.unpack key)
               Just v  -> pj v <?> Key key
 
-unknownFieldFail :: String -> String -> String -> Parser fail
+unknownFieldFail :: String -> String -> String -> Data.Aeson.Types.Parser fail
 unknownFieldFail tName rec key =
       fail $ printf "When parsing the record %s of type %s the key %s was not present."
                         rec tName key
