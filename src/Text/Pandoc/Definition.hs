@@ -90,6 +90,7 @@ import Data.Ord (comparing)
 import Data.Aeson hiding (Null)
 import Data.Aeson.TH (deriveJSON)
 import qualified Data.Aeson.Types as Aeson
+import qualified Data.Aeson.Types
 import qualified Data.Map as M
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -97,6 +98,7 @@ import GHC.Generics (Generic)
 import Data.String
 import Control.DeepSeq
 import Paths_pandoc_types (version)
+import qualified Data.Vector
 import Data.Version (Version, versionBranch)
 import Data.Semigroup (Semigroup(..))
 
@@ -363,91 +365,91 @@ instance ToJSON MetaValue where
     = \ value_atzE
         -> case value_atzE of
              MetaMap arg1_atAZ
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaMap"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atAZ))
              MetaList arg1_atB4
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atB4))
              MetaBool arg1_atB5
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaBool"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atB5))
              MetaString arg1_atB6
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaString"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atB6))
              MetaInlines arg1_atB7
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaInlines"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atB7))
              MetaBlocks arg1_atB8
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "MetaBlocks"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atB8))
   toEncoding
     = \ value_atB9
         -> case value_atB9 of
              MetaMap arg1_atBe
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaMap"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBe))
              MetaList arg1_atBj
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBj))
              MetaBool arg1_atBk
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaBool"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBk))
              MetaString arg1_atBl
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaString"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBl))
              MetaInlines arg1_atBm
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaInlines"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBm))
              MetaBlocks arg1_atBn
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "MetaBlocks"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atBn))
 instance FromJSON MetaValue where
   parseJSON
@@ -493,31 +495,31 @@ instance ToJSON CitationMode where
     = \ value_atBM
         -> case value_atBM of
              AuthorInText
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "AuthorInText")))
              SuppressAuthor
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "SuppressAuthor")))
              NormalCitation
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "NormalCitation")))
   toEncoding
     = \ value_atBN
         -> case value_atBN of
              AuthorInText
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "AuthorInText")))
              SuppressAuthor
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "SuppressAuthor")))
              NormalCitation
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "NormalCitation")))
 instance FromJSON CitationMode where
   parseJSON
@@ -548,24 +550,24 @@ instance ToJSON Citation where
                       arg4_atBW
                       arg5_atBX
                       arg6_atBY
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationId")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "citationId")
                        (toJSON arg1_atBT)
                        <>
-                         ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationPrefix")
+                         ((Data.Aeson.Types.ToJSON.pair "citationPrefix")
                             (toJSON arg2_atBU)
                             <>
-                              ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationSuffix")
+                              ((Data.Aeson.Types.ToJSON.pair "citationSuffix")
                                  (toJSON arg3_atBV)
                                  <>
-                                   ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationMode")
+                                   ((Data.Aeson.Types.ToJSON.pair "citationMode")
                                       (toJSON arg4_atBW)
                                       <>
-                                        ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair
+                                        ((Data.Aeson.Types.ToJSON.pair
                                             "citationNoteNum")
                                            (toJSON arg5_atBX)
                                            <>
-                                             (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair
+                                             (Data.Aeson.Types.ToJSON.pair
                                                 "citationHash")
                                                (toJSON arg6_atBY)))))) }
   toEncoding
@@ -577,24 +579,24 @@ instance ToJSON Citation where
                       arg4_atC3
                       arg5_atC4
                       arg6_atC5
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationId")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "citationId")
                        (toEncoding arg1_atC0)
                        <>
-                         ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationPrefix")
+                         ((Data.Aeson.Types.ToJSON.pair "citationPrefix")
                             (toEncoding arg2_atC1)
                             <>
-                              ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationSuffix")
+                              ((Data.Aeson.Types.ToJSON.pair "citationSuffix")
                                  (toEncoding arg3_atC2)
                                  <>
-                                   ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "citationMode")
+                                   ((Data.Aeson.Types.ToJSON.pair "citationMode")
                                       (toEncoding arg4_atC3)
                                       <>
-                                        ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair
+                                        ((Data.Aeson.Types.ToJSON.pair
                                             "citationNoteNum")
                                            (toEncoding arg5_atC4)
                                            <>
-                                             (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair
+                                             (Data.Aeson.Types.ToJSON.pair
                                                 "citationHash")
                                                (toEncoding arg6_atC5)))))) }
 instance FromJSON Citation where
@@ -649,23 +651,23 @@ instance ToJSON QuoteType where
     = \ value_atC9
         -> case value_atC9 of
              SingleQuote
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "SingleQuote")))
              DoubleQuote
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "DoubleQuote")))
   toEncoding
     = \ value_atCa
         -> case value_atCa of
              SingleQuote
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "SingleQuote")))
              DoubleQuote
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "DoubleQuote")))
 instance FromJSON QuoteType where
   parseJSON
@@ -689,23 +691,23 @@ instance ToJSON MathType where
     = \ value_atCf
         -> case value_atCf of
              DisplayMath
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "DisplayMath")))
              InlineMath
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "InlineMath")))
   toEncoding
     = \ value_atCg
         -> case value_atCg of
              DisplayMath
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "DisplayMath")))
              InlineMath
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "InlineMath")))
 instance FromJSON MathType where
   parseJSON
@@ -729,63 +731,63 @@ instance ToJSON ListNumberStyle where
     = \ value_atCl
         -> case value_atCl of
              DefaultStyle
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "DefaultStyle")))
              Example
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Example")))
              Decimal
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Decimal")))
              LowerRoman
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "LowerRoman")))
              UpperRoman
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "UpperRoman")))
              LowerAlpha
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "LowerAlpha")))
              UpperAlpha
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "UpperAlpha")))
   toEncoding
     = \ value_atCm
         -> case value_atCm of
              DefaultStyle
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "DefaultStyle")))
              Example
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Example")))
              Decimal
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Decimal")))
              LowerRoman
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "LowerRoman")))
              UpperRoman
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "UpperRoman")))
              LowerAlpha
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "LowerAlpha")))
              UpperAlpha
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "UpperAlpha")))
 instance FromJSON ListNumberStyle where
   parseJSON
@@ -816,39 +818,39 @@ instance ToJSON ListNumberDelim where
     = \ value_atCr
         -> case value_atCr of
              DefaultDelim
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "DefaultDelim")))
              Period
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Period")))
              OneParen
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "OneParen")))
              TwoParens
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "TwoParens")))
   toEncoding
     = \ value_atCs
         -> case value_atCs of
              DefaultDelim
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "DefaultDelim")))
              Period
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Period")))
              OneParen
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "OneParen")))
              TwoParens
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "TwoParens")))
 instance FromJSON ListNumberDelim where
   parseJSON
@@ -875,39 +877,39 @@ instance ToJSON Alignment where
     = \ value_atCx
         -> case value_atCx of
              AlignLeft
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "AlignLeft")))
              AlignRight
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "AlignRight")))
              AlignCenter
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "AlignCenter")))
              AlignDefault
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "AlignDefault")))
   toEncoding
     = \ value_atCy
         -> case value_atCy of
              AlignLeft
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "AlignLeft")))
              AlignRight
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "AlignRight")))
              AlignCenter
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "AlignCenter")))
              AlignDefault
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "AlignDefault")))
 instance FromJSON Alignment where
   parseJSON
@@ -933,29 +935,29 @@ instance ToJSON ColWidth where
     = \ value_atCD
         -> case value_atCD of
              ColWidth arg1_atCE
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "ColWidth"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atCE))
              ColWidthDefault
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "ColWidthDefault")))
   toEncoding
     = \ value_atCF
         -> case value_atCF of
              ColWidth arg1_atCG
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "ColWidth"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atCG))
              ColWidthDefault
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "ColWidthDefault")))
 instance FromJSON ColWidth where
   parseJSON
@@ -983,11 +985,11 @@ instance ToJSON Row where
         -> case value_atCN of {
              Row arg1_atCO arg2_atCP
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atCQ <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atCQ) 0)
+                    (Data.Vector.create
+                       (do mv_atCQ <- Data.Vector.Mutable.unsafeNew 2
+                           ((Data.Vector.Mutable.unsafeWrite mv_atCQ) 0)
                              (toJSON arg1_atCO)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atCQ) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atCQ) 1)
                              (toJSON arg2_atCP)
                            return mv_atCQ)) }
   toEncoding
@@ -1004,18 +1006,18 @@ instance FromJSON Row where
     = \ value_atCU
         -> case value_atCU of
              Array arr_atCV
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atCV == 2) then
+               -> if (Data.Vector.length arr_atCV == 2) then
                       ((Row
                           <$>
-                            parseJSON (arr_atCV `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                            parseJSON (arr_atCV `Data.Vector.unsafeIndex` 0))
                          <*>
-                           parseJSON (arr_atCV `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                           parseJSON (arr_atCV `Data.Vector.unsafeIndex` 1))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "Row")
                           "Text.Pandoc.Definition.Row")
                          "Array of length 2")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atCV)
+                           ++ (show . Data.Vector.length) arr_atCV)
              other_atCW
                -> (((Data.Aeson.TH.parseTypeMismatch' "Row")
                       "Text.Pandoc.Definition.Row")
@@ -1027,11 +1029,11 @@ instance ToJSON Caption where
         -> case value_atCX of {
              Caption arg1_atD0 arg2_atD1
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atD2 <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atD2) 0)
+                    (Data.Vector.create
+                       (do mv_atD2 <- Data.Vector.Mutable.unsafeNew 2
+                           ((Data.Vector.Mutable.unsafeWrite mv_atD2) 0)
                              (toJSON arg1_atD0)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atD2) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atD2) 1)
                              (toJSON arg2_atD1)
                            return mv_atD2)) }
   toEncoding
@@ -1048,18 +1050,18 @@ instance FromJSON Caption where
     = \ value_atDc
         -> case value_atDc of
              Array arr_atDf
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atDf == 2) then
+               -> if (Data.Vector.length arr_atDf == 2) then
                       ((Caption
                           <$>
-                            parseJSON (arr_atDf `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                            parseJSON (arr_atDf `Data.Vector.unsafeIndex` 0))
                          <*>
-                           parseJSON (arr_atDf `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                           parseJSON (arr_atDf `Data.Vector.unsafeIndex` 1))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "Caption")
                           "Text.Pandoc.Definition.Caption")
                          "Array of length 2")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atDf)
+                           ++ (show . Data.Vector.length) arr_atDf)
              other_atDi
                -> (((Data.Aeson.TH.parseTypeMismatch' "Caption")
                       "Text.Pandoc.Definition.Caption")
@@ -1071,11 +1073,11 @@ instance ToJSON TableHead where
         -> case value_atDj of {
              TableHead arg1_atDk arg2_atDl
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atDm <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDm) 0)
+                    (Data.Vector.create
+                       (do mv_atDm <- Data.Vector.Mutable.unsafeNew 2
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDm) 0)
                              (toJSON arg1_atDk)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDm) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDm) 1)
                              (toJSON arg2_atDl)
                            return mv_atDm)) }
   toEncoding
@@ -1092,18 +1094,18 @@ instance FromJSON TableHead where
     = \ value_atDq
         -> case value_atDq of
              Array arr_atDr
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atDr == 2) then
+               -> if (Data.Vector.length arr_atDr == 2) then
                       ((TableHead
                           <$>
-                            parseJSON (arr_atDr `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                            parseJSON (arr_atDr `Data.Vector.unsafeIndex` 0))
                          <*>
-                           parseJSON (arr_atDr `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                           parseJSON (arr_atDr `Data.Vector.unsafeIndex` 1))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "TableHead")
                           "Text.Pandoc.Definition.TableHead")
                          "Array of length 2")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atDr)
+                           ++ (show . Data.Vector.length) arr_atDr)
              other_atDs
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableHead")
                       "Text.Pandoc.Definition.TableHead")
@@ -1115,15 +1117,15 @@ instance ToJSON TableBody where
         -> case value_atDt of {
              TableBody arg1_atDu arg2_atDv arg3_atDw arg4_atDx
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atDy <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 4
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDy) 0)
+                    (Data.Vector.create
+                       (do mv_atDy <- Data.Vector.Mutable.unsafeNew 4
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 0)
                              (toJSON arg1_atDu)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDy) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 1)
                              (toJSON arg2_atDv)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDy) 2)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 2)
                              (toJSON arg3_atDw)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDy) 3)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 3)
                              (toJSON arg4_atDx)
                            return mv_atDy)) }
   toEncoding
@@ -1149,22 +1151,22 @@ instance FromJSON TableBody where
     = \ value_atDE
         -> case value_atDE of
              Array arr_atDF
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atDF == 4) then
+               -> if (Data.Vector.length arr_atDF == 4) then
                       ((((TableBody
                             <$>
-                              parseJSON (arr_atDF `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                              parseJSON (arr_atDF `Data.Vector.unsafeIndex` 0))
                            <*>
-                             parseJSON (arr_atDF `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                             parseJSON (arr_atDF `Data.Vector.unsafeIndex` 1))
                           <*>
-                            parseJSON (arr_atDF `vector-0.12.1.2:Data.Vector.unsafeIndex` 2))
+                            parseJSON (arr_atDF `Data.Vector.unsafeIndex` 2))
                          <*>
-                           parseJSON (arr_atDF `vector-0.12.1.2:Data.Vector.unsafeIndex` 3))
+                           parseJSON (arr_atDF `Data.Vector.unsafeIndex` 3))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "TableBody")
                           "Text.Pandoc.Definition.TableBody")
                          "Array of length 4")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atDF)
+                           ++ (show . Data.Vector.length) arr_atDF)
              other_atDG
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableBody")
                       "Text.Pandoc.Definition.TableBody")
@@ -1176,11 +1178,11 @@ instance ToJSON TableFoot where
         -> case value_atDH of {
              TableFoot arg1_atDI arg2_atDJ
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atDK <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDK) 0)
+                    (Data.Vector.create
+                       (do mv_atDK <- Data.Vector.Mutable.unsafeNew 2
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDK) 0)
                              (toJSON arg1_atDI)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDK) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDK) 1)
                              (toJSON arg2_atDJ)
                            return mv_atDK)) }
   toEncoding
@@ -1197,18 +1199,18 @@ instance FromJSON TableFoot where
     = \ value_atDO
         -> case value_atDO of
              Array arr_atDP
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atDP == 2) then
+               -> if (Data.Vector.length arr_atDP == 2) then
                       ((TableFoot
                           <$>
-                            parseJSON (arr_atDP `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                            parseJSON (arr_atDP `Data.Vector.unsafeIndex` 0))
                          <*>
-                           parseJSON (arr_atDP `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                           parseJSON (arr_atDP `Data.Vector.unsafeIndex` 1))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "TableFoot")
                           "Text.Pandoc.Definition.TableFoot")
                          "Array of length 2")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atDP)
+                           ++ (show . Data.Vector.length) arr_atDP)
              other_atDQ
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableFoot")
                       "Text.Pandoc.Definition.TableFoot")
@@ -1220,17 +1222,17 @@ instance ToJSON Cell where
         -> case value_atDR of {
              Cell arg1_atDS arg2_atDT arg3_atDU arg4_atDV arg5_atDW
                -> Array
-                    (vector-0.12.1.2:Data.Vector.create
-                       (do mv_atDX <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 5
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDX) 0)
+                    (Data.Vector.create
+                       (do mv_atDX <- Data.Vector.Mutable.unsafeNew 5
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 0)
                              (toJSON arg1_atDS)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDX) 1)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 1)
                              (toJSON arg2_atDT)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDX) 2)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 2)
                              (toJSON arg3_atDU)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDX) 3)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 3)
                              (toJSON arg4_atDV)
-                           ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atDX) 4)
+                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 4)
                              (toJSON arg5_atDW)
                            return mv_atDX)) }
   toEncoding
@@ -1260,24 +1262,24 @@ instance FromJSON Cell where
     = \ value_atE4
         -> case value_atE4 of
              Array arr_atE5
-               -> if (vector-0.12.1.2:Data.Vector.length arr_atE5 == 5) then
+               -> if (Data.Vector.length arr_atE5 == 5) then
                       (((((Cell
                              <$>
-                               parseJSON (arr_atE5 `vector-0.12.1.2:Data.Vector.unsafeIndex` 0))
+                               parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 0))
                             <*>
-                              parseJSON (arr_atE5 `vector-0.12.1.2:Data.Vector.unsafeIndex` 1))
+                              parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 1))
                            <*>
-                             parseJSON (arr_atE5 `vector-0.12.1.2:Data.Vector.unsafeIndex` 2))
+                             parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 2))
                           <*>
-                            parseJSON (arr_atE5 `vector-0.12.1.2:Data.Vector.unsafeIndex` 3))
+                            parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 3))
                          <*>
-                           parseJSON (arr_atE5 `vector-0.12.1.2:Data.Vector.unsafeIndex` 4))
+                           parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 4))
                   else
                       (((Data.Aeson.TH.parseTypeMismatch' "Cell")
                           "Text.Pandoc.Definition.Cell")
                          "Array of length 5")
                         ("Array of length "
-                           ++ (show . vector-0.12.1.2:Data.Vector.length) arr_atE5)
+                           ++ (show . Data.Vector.length) arr_atE5)
              other_atE6
                -> (((Data.Aeson.TH.parseTypeMismatch' "Cell")
                       "Text.Pandoc.Definition.Cell")
@@ -1288,211 +1290,211 @@ instance ToJSON Inline where
     = \ value_atE7
         -> case value_atE7 of
              Str arg1_atE8
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Str"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atE8))
              Emph arg1_atE9
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Emph"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atE9))
              Underline arg1_atEa
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Underline"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEa))
              Strong arg1_atEb
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Strong"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEb))
              Strikeout arg1_atEc
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Strikeout"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEc))
              Superscript arg1_atEd
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Superscript"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEd))
              Subscript arg1_atEe
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Subscript"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEe))
              SmallCaps arg1_atEf
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "SmallCaps"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atEf))
              Quoted arg1_atEg arg2_atEh
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Quoted"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEi <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEi)
+                              (Data.Vector.create
+                                 (do mv_atEi <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEi)
                                         0)
                                        (toJSON arg1_atEg)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEi)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEi)
                                         1)
                                        (toJSON arg2_atEh)
                                      return mv_atEi))))
              Cite arg1_atEj arg2_atEk
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Cite"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEl <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEl)
+                              (Data.Vector.create
+                                 (do mv_atEl <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEl)
                                         0)
                                        (toJSON arg1_atEj)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEl)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEl)
                                         1)
                                        (toJSON arg2_atEk)
                                      return mv_atEl))))
              Code arg1_atEm arg2_atEn
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Code"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEo <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEo)
+                              (Data.Vector.create
+                                 (do mv_atEo <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEo)
                                         0)
                                        (toJSON arg1_atEm)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEo)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEo)
                                         1)
                                        (toJSON arg2_atEn)
                                      return mv_atEo))))
              Space
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Space")))
              SoftBreak
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "SoftBreak")))
              LineBreak
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "LineBreak")))
              Math arg1_atEp arg2_atEq
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Math"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEr <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEr)
+                              (Data.Vector.create
+                                 (do mv_atEr <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEr)
                                         0)
                                        (toJSON arg1_atEp)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEr)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEr)
                                         1)
                                        (toJSON arg2_atEq)
                                      return mv_atEr))))
              RawInline arg1_atEs arg2_atEt
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "RawInline"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEu <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEu)
+                              (Data.Vector.create
+                                 (do mv_atEu <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEu)
                                         0)
                                        (toJSON arg1_atEs)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEu)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEu)
                                         1)
                                        (toJSON arg2_atEt)
                                      return mv_atEu))))
              Link arg1_atEv arg2_atEw arg3_atEx
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Link"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEy <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 3
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEy)
+                              (Data.Vector.create
+                                 (do mv_atEy <- Data.Vector.Mutable.unsafeNew 3
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
                                         0)
                                        (toJSON arg1_atEv)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEy)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
                                         1)
                                        (toJSON arg2_atEw)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEy)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
                                         2)
                                        (toJSON arg3_atEx)
                                      return mv_atEy))))
              Image arg1_atEz arg2_atEA arg3_atEB
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Image"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEC <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 3
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEC)
+                              (Data.Vector.create
+                                 (do mv_atEC <- Data.Vector.Mutable.unsafeNew 3
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
                                         0)
                                        (toJSON arg1_atEz)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEC)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
                                         1)
                                        (toJSON arg2_atEA)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEC)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
                                         2)
                                        (toJSON arg3_atEB)
                                      return mv_atEC))))
              Note arg1_atED
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Note"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atED))
              Span arg1_atEE arg2_atEF
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Span"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atEG <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEG)
+                              (Data.Vector.create
+                                 (do mv_atEG <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEG)
                                         0)
                                        (toJSON arg1_atEE)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atEG)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atEG)
                                         1)
                                        (toJSON arg2_atEF)
                                      return mv_atEG))))
@@ -1500,134 +1502,134 @@ instance ToJSON Inline where
     = \ value_atEH
         -> case value_atEH of
              Str arg1_atEI
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Str"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEI))
              Emph arg1_atEJ
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Emph"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEJ))
              Underline arg1_atEK
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Underline"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEK))
              Strong arg1_atEL
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Strong"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEL))
              Strikeout arg1_atEM
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Strikeout"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEM))
              Superscript arg1_atEN
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Superscript"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEN))
              Subscript arg1_atEO
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Subscript"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEO))
              SmallCaps arg1_atEP
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "SmallCaps"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atEP))
              Quoted arg1_atEQ arg2_atER
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Quoted"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atEQ
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atER))))
              Cite arg1_atES arg2_atET
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Cite"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atES
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atET))))
              Code arg1_atEU arg2_atEV
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Code"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atEU
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atEV))))
              Space
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Space")))
              SoftBreak
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "SoftBreak")))
              LineBreak
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "LineBreak")))
              Math arg1_atEW arg2_atEX
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Math"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atEW
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atEX))))
              RawInline arg1_atEY arg2_atEZ
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "RawInline"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atEY
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atEZ))))
              Link arg1_atF0 arg2_atF1 arg3_atF2
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Link"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atF0
                                  Data.Aeson.Encoding.Internal.><
@@ -1639,11 +1641,11 @@ instance ToJSON Inline where
                                                 Data.Aeson.Encoding.Internal.><
                                                   toEncoding arg3_atF2))))))
              Image arg1_atF3 arg2_atF4 arg3_atF5
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Image"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atF3
                                  Data.Aeson.Encoding.Internal.><
@@ -1655,18 +1657,18 @@ instance ToJSON Inline where
                                                 Data.Aeson.Encoding.Internal.><
                                                   toEncoding arg3_atF5))))))
              Note arg1_atF6
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Note"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atF6))
              Span arg1_atF7 arg2_atF8
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Span"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atF7
                                  Data.Aeson.Encoding.Internal.><
@@ -1712,17 +1714,17 @@ instance FromJSON Inline where
                          -> do val_atFs <- (obj_atFa .: T.pack "c")
                                case val_atFs of
                                  Array arr_atFt
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFt == 2) then
+                                   -> if (Data.Vector.length arr_atFt == 2) then
                                           ((Quoted
                                               <$>
                                                 parseJSON
                                                   (arr_atFt
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFt
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Quoted")
@@ -1730,7 +1732,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFt)
                                  other_atFu
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Quoted")
@@ -1741,17 +1743,17 @@ instance FromJSON Inline where
                          -> do val_atFv <- (obj_atFa .: T.pack "c")
                                case val_atFv of
                                  Array arr_atFw
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFw == 2) then
+                                   -> if (Data.Vector.length arr_atFw == 2) then
                                           ((Cite
                                               <$>
                                                 parseJSON
                                                   (arr_atFw
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFw
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Cite")
@@ -1759,7 +1761,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFw)
                                  other_atFx
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Cite")
@@ -1770,17 +1772,17 @@ instance FromJSON Inline where
                          -> do val_atFy <- (obj_atFa .: T.pack "c")
                                case val_atFy of
                                  Array arr_atFz
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFz == 2) then
+                                   -> if (Data.Vector.length arr_atFz == 2) then
                                           ((Code
                                               <$>
                                                 parseJSON
                                                   (arr_atFz
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFz
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Code")
@@ -1788,7 +1790,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFz)
                                  other_atFA
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Code")
@@ -1802,17 +1804,17 @@ instance FromJSON Inline where
                          -> do val_atFB <- (obj_atFa .: T.pack "c")
                                case val_atFB of
                                  Array arr_atFC
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFC == 2) then
+                                   -> if (Data.Vector.length arr_atFC == 2) then
                                           ((Math
                                               <$>
                                                 parseJSON
                                                   (arr_atFC
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFC
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Math")
@@ -1820,7 +1822,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFC)
                                  other_atFD
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Math")
@@ -1831,17 +1833,17 @@ instance FromJSON Inline where
                          -> do val_atFE <- (obj_atFa .: T.pack "c")
                                case val_atFE of
                                  Array arr_atFF
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFF == 2) then
+                                   -> if (Data.Vector.length arr_atFF == 2) then
                                           ((RawInline
                                               <$>
                                                 parseJSON
                                                   (arr_atFF
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFF
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "RawInline")
@@ -1849,7 +1851,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFF)
                                  other_atFG
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "RawInline")
@@ -1860,22 +1862,22 @@ instance FromJSON Inline where
                          -> do val_atFH <- (obj_atFa .: T.pack "c")
                                case val_atFH of
                                  Array arr_atFI
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFI == 3) then
+                                   -> if (Data.Vector.length arr_atFI == 3) then
                                           (((Link
                                                <$>
                                                  parseJSON
                                                    (arr_atFI
-                                                      `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                      `Data.Vector.unsafeIndex`
                                                         0))
                                               <*>
                                                 parseJSON
                                                   (arr_atFI
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        1))
                                              <*>
                                                parseJSON
                                                  (arr_atFI
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       2))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Link")
@@ -1883,7 +1885,7 @@ instance FromJSON Inline where
                                              "Array of length 3")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFI)
                                  other_atFJ
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Link")
@@ -1894,22 +1896,22 @@ instance FromJSON Inline where
                          -> do val_atFK <- (obj_atFa .: T.pack "c")
                                case val_atFK of
                                  Array arr_atFL
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFL == 3) then
+                                   -> if (Data.Vector.length arr_atFL == 3) then
                                           (((Image
                                                <$>
                                                  parseJSON
                                                    (arr_atFL
-                                                      `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                      `Data.Vector.unsafeIndex`
                                                         0))
                                               <*>
                                                 parseJSON
                                                   (arr_atFL
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        1))
                                              <*>
                                                parseJSON
                                                  (arr_atFL
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       2))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Image")
@@ -1917,7 +1919,7 @@ instance FromJSON Inline where
                                              "Array of length 3")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFL)
                                  other_atFM
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Image")
@@ -1931,17 +1933,17 @@ instance FromJSON Inline where
                          -> do val_atFP <- (obj_atFa .: T.pack "c")
                                case val_atFP of
                                  Array arr_atFQ
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atFQ == 2) then
+                                   -> if (Data.Vector.length arr_atFQ == 2) then
                                           ((Span
                                               <$>
                                                 parseJSON
                                                   (arr_atFQ
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atFQ
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Span")
@@ -1949,7 +1951,7 @@ instance FromJSON Inline where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atFQ)
                                  other_atFR
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Span")
@@ -1972,250 +1974,250 @@ instance ToJSON Block where
     = \ value_atFT
         -> case value_atFT of
              Plain arg1_atFU
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Plain"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atFU))
              Para arg1_atFV
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Para"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atFV))
              LineBlock arg1_atFW
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "LineBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atFW))
              CodeBlock arg1_atFX arg2_atFY
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "CodeBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atFZ <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atFZ)
+                              (Data.Vector.create
+                                 (do mv_atFZ <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atFZ)
                                         0)
                                        (toJSON arg1_atFX)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atFZ)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atFZ)
                                         1)
                                        (toJSON arg2_atFY)
                                      return mv_atFZ))))
              RawBlock arg1_atG0 arg2_atG1
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "RawBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atG2 <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atG2)
+                              (Data.Vector.create
+                                 (do mv_atG2 <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atG2)
                                         0)
                                        (toJSON arg1_atG0)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atG2)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atG2)
                                         1)
                                        (toJSON arg2_atG1)
                                      return mv_atG2))))
              BlockQuote arg1_atG3
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "BlockQuote"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atG3))
              OrderedList arg1_atG4 arg2_atG5
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "OrderedList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atG6 <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atG6)
+                              (Data.Vector.create
+                                 (do mv_atG6 <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atG6)
                                         0)
                                        (toJSON arg1_atG4)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atG6)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atG6)
                                         1)
                                        (toJSON arg2_atG5)
                                      return mv_atG6))))
              BulletList arg1_atG7
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "BulletList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atG7))
              DefinitionList arg1_atG8
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "DefinitionList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toJSON arg1_atG8))
              Header arg1_atG9 arg2_atGa arg3_atGb
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Header"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atGc <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 3
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGc)
+                              (Data.Vector.create
+                                 (do mv_atGc <- Data.Vector.Mutable.unsafeNew 3
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
                                         0)
                                        (toJSON arg1_atG9)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGc)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
                                         1)
                                        (toJSON arg2_atGa)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGc)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
                                         2)
                                        (toJSON arg3_atGb)
                                      return mv_atGc))))
              HorizontalRule
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "HorizontalRule")))
              Table arg1_atGd arg2_atGe arg3_atGf arg4_atGg arg5_atGh arg6_atGi
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Table"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atGj <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 6
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                              (Data.Vector.create
+                                 (do mv_atGj <- Data.Vector.Mutable.unsafeNew 6
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         0)
                                        (toJSON arg1_atGd)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         1)
                                        (toJSON arg2_atGe)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         2)
                                        (toJSON arg3_atGf)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         3)
                                        (toJSON arg4_atGg)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         4)
                                        (toJSON arg5_atGh)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGj)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
                                         5)
                                        (toJSON arg6_atGi)
                                      return mv_atGj))))
              Div arg1_atGk arg2_atGl
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Div"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Array
-                              (vector-0.12.1.2:Data.Vector.create
-                                 (do mv_atGm <- vector-0.12.1.2:Data.Vector.Mutable.unsafeNew 2
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGm)
+                              (Data.Vector.create
+                                 (do mv_atGm <- Data.Vector.Mutable.unsafeNew 2
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGm)
                                         0)
                                        (toJSON arg1_atGk)
-                                     ((vector-0.12.1.2:Data.Vector.Mutable.unsafeWrite mv_atGm)
+                                     ((Data.Vector.Mutable.unsafeWrite mv_atGm)
                                         1)
                                        (toJSON arg2_atGl)
                                      return mv_atGm))))
              Null
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (String (T.pack "Null")))
   toEncoding
     = \ value_atGn
         -> case value_atGn of
              Plain arg1_atGo
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Plain"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGo))
              Para arg1_atGp
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Para"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGp))
              LineBlock arg1_atGq
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "LineBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGq))
              CodeBlock arg1_atGr arg2_atGs
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "CodeBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGr
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atGs))))
              RawBlock arg1_atGt arg2_atGu
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "RawBlock"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGt
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atGu))))
              BlockQuote arg1_atGv
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "BlockQuote"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGv))
              OrderedList arg1_atGw arg2_atGx
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "OrderedList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGw
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atGx))))
              BulletList arg1_atGy
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "BulletList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGy))
              DefinitionList arg1_atGz
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "DefinitionList"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (toEncoding arg1_atGz))
              Header arg1_atGA arg2_atGB arg3_atGC
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Header"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGA
                                  Data.Aeson.Encoding.Internal.><
@@ -2227,15 +2229,15 @@ instance ToJSON Block where
                                                 Data.Aeson.Encoding.Internal.><
                                                   toEncoding arg3_atGC))))))
              HorizontalRule
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "HorizontalRule")))
              Table arg1_atGD arg2_atGE arg3_atGF arg4_atGG arg5_atGH arg6_atGI
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Table"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGD
                                  Data.Aeson.Encoding.Internal.><
@@ -2260,19 +2262,19 @@ instance ToJSON Block where
                                                                                 toEncoding
                                                                                   arg6_atGI))))))))))))
              Div arg1_atGJ arg2_atGK
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Div"))
                        <>
-                         (aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "c")
+                         (Data.Aeson.Types.ToJSON.pair "c")
                            (Data.Aeson.Encoding.Internal.wrapArray
                               (toEncoding arg1_atGJ
                                  Data.Aeson.Encoding.Internal.><
                                    (Data.Aeson.Encoding.Internal.comma
                                       Data.Aeson.Encoding.Internal.>< toEncoding arg2_atGK))))
              Null
-               -> aeson-1.5.5.1:Data.Aeson.Types.ToJSON.fromPairs
-                    ((aeson-1.5.5.1:Data.Aeson.Types.ToJSON.pair "t")
+               -> Data.Aeson.Types.ToJSON.fromPairs
+                    ((Data.Aeson.Types.ToJSON.pair "t")
                        (Data.Aeson.Encoding.Internal.text (T.pack "Null")))
 instance FromJSON Block where
   parseJSON
@@ -2295,17 +2297,17 @@ instance FromJSON Block where
                          -> do val_atGU <- (obj_atGM .: T.pack "c")
                                case val_atGU of
                                  Array arr_atGV
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atGV == 2) then
+                                   -> if (Data.Vector.length arr_atGV == 2) then
                                           ((CodeBlock
                                               <$>
                                                 parseJSON
                                                   (arr_atGV
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atGV
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "CodeBlock")
@@ -2313,7 +2315,7 @@ instance FromJSON Block where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atGV)
                                  other_atGW
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "CodeBlock")
@@ -2324,17 +2326,17 @@ instance FromJSON Block where
                          -> do val_atGX <- (obj_atGM .: T.pack "c")
                                case val_atGX of
                                  Array arr_atGY
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atGY == 2) then
+                                   -> if (Data.Vector.length arr_atGY == 2) then
                                           ((RawBlock
                                               <$>
                                                 parseJSON
                                                   (arr_atGY
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atGY
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "RawBlock")
@@ -2342,7 +2344,7 @@ instance FromJSON Block where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atGY)
                                  other_atGZ
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "RawBlock")
@@ -2357,17 +2359,17 @@ instance FromJSON Block where
                          -> do val_atH2 <- (obj_atGM .: T.pack "c")
                                case val_atH2 of
                                  Array arr_atH3
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atH3 == 2) then
+                                   -> if (Data.Vector.length arr_atH3 == 2) then
                                           ((OrderedList
                                               <$>
                                                 parseJSON
                                                   (arr_atH3
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atH3
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "OrderedList")
@@ -2375,7 +2377,7 @@ instance FromJSON Block where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atH3)
                                  other_atH4
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "OrderedList")
@@ -2394,22 +2396,22 @@ instance FromJSON Block where
                          -> do val_atH9 <- (obj_atGM .: T.pack "c")
                                case val_atH9 of
                                  Array arr_atHa
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atHa == 3) then
+                                   -> if (Data.Vector.length arr_atHa == 3) then
                                           (((Header
                                                <$>
                                                  parseJSON
                                                    (arr_atHa
-                                                      `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                      `Data.Vector.unsafeIndex`
                                                         0))
                                               <*>
                                                 parseJSON
                                                   (arr_atHa
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        1))
                                              <*>
                                                parseJSON
                                                  (arr_atHa
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       2))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Header")
@@ -2417,7 +2419,7 @@ instance FromJSON Block where
                                              "Array of length 3")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atHa)
                                  other_atHb
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Header")
@@ -2429,37 +2431,37 @@ instance FromJSON Block where
                          -> do val_atHc <- (obj_atGM .: T.pack "c")
                                case val_atHc of
                                  Array arr_atHd
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atHd == 6) then
+                                   -> if (Data.Vector.length arr_atHd == 6) then
                                           ((((((Table
                                                   <$>
                                                     parseJSON
                                                       (arr_atHd
-                                                         `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                         `Data.Vector.unsafeIndex`
                                                            0))
                                                  <*>
                                                    parseJSON
                                                      (arr_atHd
-                                                        `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                        `Data.Vector.unsafeIndex`
                                                           1))
                                                 <*>
                                                   parseJSON
                                                     (arr_atHd
-                                                       `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                       `Data.Vector.unsafeIndex`
                                                          2))
                                                <*>
                                                  parseJSON
                                                    (arr_atHd
-                                                      `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                      `Data.Vector.unsafeIndex`
                                                         3))
                                               <*>
                                                 parseJSON
                                                   (arr_atHd
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        4))
                                              <*>
                                                parseJSON
                                                  (arr_atHd
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       5))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Table")
@@ -2467,7 +2469,7 @@ instance FromJSON Block where
                                              "Array of length 6")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atHd)
                                  other_atHe
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Table")
@@ -2478,17 +2480,17 @@ instance FromJSON Block where
                          -> do val_atHf <- (obj_atGM .: T.pack "c")
                                case val_atHf of
                                  Array arr_atHg
-                                   -> if (vector-0.12.1.2:Data.Vector.length arr_atHg == 2) then
+                                   -> if (Data.Vector.length arr_atHg == 2) then
                                           ((Div
                                               <$>
                                                 parseJSON
                                                   (arr_atHg
-                                                     `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                     `Data.Vector.unsafeIndex`
                                                        0))
                                              <*>
                                                parseJSON
                                                  (arr_atHg
-                                                    `vector-0.12.1.2:Data.Vector.unsafeIndex`
+                                                    `Data.Vector.unsafeIndex`
                                                       1))
                                       else
                                           (((Data.Aeson.TH.parseTypeMismatch' "Div")
@@ -2496,7 +2498,7 @@ instance FromJSON Block where
                                              "Array of length 2")
                                             ("Array of length "
                                                ++
-                                                 (show . vector-0.12.1.2:Data.Vector.length)
+                                                 (show . Data.Vector.length)
                                                    arr_atHg)
                                  other_atHh
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Div")
