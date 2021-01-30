@@ -370,6 +370,11 @@ valueConName (Number _) = "Number"
 valueConName (Bool   _) = "Boolean"
 valueConName Null       = "Null"
 
+parseTypeMismatch' :: String -> String -> String -> String -> Parser fail
+parseTypeMismatch' conName tName expected actual =
+      fail $ printf "When parsing the constructor %s of type %s expected %s but got %s."
+                        conName tName expected actual
+
 -- ToJSON/FromJSON instances. Some are defined by hand so that we have
 -- more control over the format.
 
@@ -655,7 +660,7 @@ instance FromJSON Citation where
                           recObj_atC7)
                          (T.pack "citationHash"))
              other_atC8
-               -> (((Data.Aeson.TH.parseTypeMismatch' "Citation")
+               -> (((parseTypeMismatch' "Citation")
                       "Text.Pandoc.Definition.Citation")
                      "Object")
                     (valueConName other_atC8)
@@ -1026,13 +1031,13 @@ instance FromJSON Row where
                          <*>
                            parseJSON (arr_atCV `Data.Vector.unsafeIndex` 1))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "Row")
+                      (((parseTypeMismatch' "Row")
                           "Text.Pandoc.Definition.Row")
                          "Array of length 2")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atCV)
              other_atCW
-               -> (((Data.Aeson.TH.parseTypeMismatch' "Row")
+               -> (((parseTypeMismatch' "Row")
                       "Text.Pandoc.Definition.Row")
                      "Array")
                     (valueConName other_atCW)
@@ -1070,13 +1075,13 @@ instance FromJSON Caption where
                          <*>
                            parseJSON (arr_atDf `Data.Vector.unsafeIndex` 1))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "Caption")
+                      (((parseTypeMismatch' "Caption")
                           "Text.Pandoc.Definition.Caption")
                          "Array of length 2")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atDf)
              other_atDi
-               -> (((Data.Aeson.TH.parseTypeMismatch' "Caption")
+               -> (((parseTypeMismatch' "Caption")
                       "Text.Pandoc.Definition.Caption")
                      "Array")
                     (valueConName other_atDi)
@@ -1114,13 +1119,13 @@ instance FromJSON TableHead where
                          <*>
                            parseJSON (arr_atDr `Data.Vector.unsafeIndex` 1))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "TableHead")
+                      (((parseTypeMismatch' "TableHead")
                           "Text.Pandoc.Definition.TableHead")
                          "Array of length 2")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atDr)
              other_atDs
-               -> (((Data.Aeson.TH.parseTypeMismatch' "TableHead")
+               -> (((parseTypeMismatch' "TableHead")
                       "Text.Pandoc.Definition.TableHead")
                      "Array")
                     (valueConName other_atDs)
@@ -1175,13 +1180,13 @@ instance FromJSON TableBody where
                          <*>
                            parseJSON (arr_atDF `Data.Vector.unsafeIndex` 3))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "TableBody")
+                      (((parseTypeMismatch' "TableBody")
                           "Text.Pandoc.Definition.TableBody")
                          "Array of length 4")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atDF)
              other_atDG
-               -> (((Data.Aeson.TH.parseTypeMismatch' "TableBody")
+               -> (((parseTypeMismatch' "TableBody")
                       "Text.Pandoc.Definition.TableBody")
                      "Array")
                     (valueConName other_atDG)
@@ -1219,13 +1224,13 @@ instance FromJSON TableFoot where
                          <*>
                            parseJSON (arr_atDP `Data.Vector.unsafeIndex` 1))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "TableFoot")
+                      (((parseTypeMismatch' "TableFoot")
                           "Text.Pandoc.Definition.TableFoot")
                          "Array of length 2")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atDP)
              other_atDQ
-               -> (((Data.Aeson.TH.parseTypeMismatch' "TableFoot")
+               -> (((parseTypeMismatch' "TableFoot")
                       "Text.Pandoc.Definition.TableFoot")
                      "Array")
                     (valueConName other_atDQ)
@@ -1288,13 +1293,13 @@ instance FromJSON Cell where
                          <*>
                            parseJSON (arr_atE5 `Data.Vector.unsafeIndex` 4))
                   else
-                      (((Data.Aeson.TH.parseTypeMismatch' "Cell")
+                      (((parseTypeMismatch' "Cell")
                           "Text.Pandoc.Definition.Cell")
                          "Array of length 5")
                         ("Array of length "
                            ++ (show . Data.Vector.length) arr_atE5)
              other_atE6
-               -> (((Data.Aeson.TH.parseTypeMismatch' "Cell")
+               -> (((parseTypeMismatch' "Cell")
                       "Text.Pandoc.Definition.Cell")
                      "Array")
                     (valueConName other_atE6)
@@ -1740,7 +1745,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Quoted")
+                                          (((parseTypeMismatch' "Quoted")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1748,7 +1753,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFt)
                                  other_atFu
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Quoted")
+                                   -> (((parseTypeMismatch' "Quoted")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFu)
@@ -1769,7 +1774,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Cite")
+                                          (((parseTypeMismatch' "Cite")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1777,7 +1782,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFw)
                                  other_atFx
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Cite")
+                                   -> (((parseTypeMismatch' "Cite")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFx)
@@ -1798,7 +1803,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Code")
+                                          (((parseTypeMismatch' "Code")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1806,7 +1811,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFz)
                                  other_atFA
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Code")
+                                   -> (((parseTypeMismatch' "Code")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFA)
@@ -1830,7 +1835,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Math")
+                                          (((parseTypeMismatch' "Math")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1838,7 +1843,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFC)
                                  other_atFD
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Math")
+                                   -> (((parseTypeMismatch' "Math")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFD)
@@ -1859,7 +1864,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "RawInline")
+                                          (((parseTypeMismatch' "RawInline")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1867,7 +1872,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFF)
                                  other_atFG
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "RawInline")
+                                   -> (((parseTypeMismatch' "RawInline")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFG)
@@ -1893,7 +1898,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       2))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Link")
+                                          (((parseTypeMismatch' "Link")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 3")
                                             ("Array of length "
@@ -1901,7 +1906,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFI)
                                  other_atFJ
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Link")
+                                   -> (((parseTypeMismatch' "Link")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFJ)
@@ -1927,7 +1932,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       2))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Image")
+                                          (((parseTypeMismatch' "Image")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 3")
                                             ("Array of length "
@@ -1935,7 +1940,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFL)
                                  other_atFM
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Image")
+                                   -> (((parseTypeMismatch' "Image")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFM)
@@ -1959,7 +1964,7 @@ instance FromJSON Inline where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Span")
+                                          (((parseTypeMismatch' "Span")
                                               "Text.Pandoc.Definition.Inline")
                                              "Array of length 2")
                                             ("Array of length "
@@ -1967,7 +1972,7 @@ instance FromJSON Inline where
                                                  (show . Data.Vector.length)
                                                    arr_atFQ)
                                  other_atFR
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Span")
+                                   -> (((parseTypeMismatch' "Span")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
                                         (valueConName other_atFR)
@@ -2323,7 +2328,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "CodeBlock")
+                                          (((parseTypeMismatch' "CodeBlock")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 2")
                                             ("Array of length "
@@ -2331,7 +2336,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atGV)
                                  other_atGW
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "CodeBlock")
+                                   -> (((parseTypeMismatch' "CodeBlock")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atGW)
@@ -2352,7 +2357,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "RawBlock")
+                                          (((parseTypeMismatch' "RawBlock")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 2")
                                             ("Array of length "
@@ -2360,7 +2365,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atGY)
                                  other_atGZ
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "RawBlock")
+                                   -> (((parseTypeMismatch' "RawBlock")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atGZ)
@@ -2385,7 +2390,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "OrderedList")
+                                          (((parseTypeMismatch' "OrderedList")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 2")
                                             ("Array of length "
@@ -2393,7 +2398,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atH3)
                                  other_atH4
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "OrderedList")
+                                   -> (((parseTypeMismatch' "OrderedList")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atH4)
@@ -2427,7 +2432,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       2))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Header")
+                                          (((parseTypeMismatch' "Header")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 3")
                                             ("Array of length "
@@ -2435,7 +2440,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atHa)
                                  other_atHb
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Header")
+                                   -> (((parseTypeMismatch' "Header")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atHb)
@@ -2477,7 +2482,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       5))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Table")
+                                          (((parseTypeMismatch' "Table")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 6")
                                             ("Array of length "
@@ -2485,7 +2490,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atHd)
                                  other_atHe
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Table")
+                                   -> (((parseTypeMismatch' "Table")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atHe)
@@ -2506,7 +2511,7 @@ instance FromJSON Block where
                                                     `Data.Vector.unsafeIndex`
                                                       1))
                                       else
-                                          (((Data.Aeson.TH.parseTypeMismatch' "Div")
+                                          (((parseTypeMismatch' "Div")
                                               "Text.Pandoc.Definition.Block")
                                              "Array of length 2")
                                             ("Array of length "
@@ -2514,7 +2519,7 @@ instance FromJSON Block where
                                                  (show . Data.Vector.length)
                                                    arr_atHg)
                                  other_atHh
-                                   -> (((Data.Aeson.TH.parseTypeMismatch' "Div")
+                                   -> (((parseTypeMismatch' "Div")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
                                         (valueConName other_atHh)
