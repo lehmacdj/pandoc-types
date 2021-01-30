@@ -382,6 +382,18 @@ conNotFoundFailTaggedObject t cs o =
 noObjectFail :: String -> String -> Parser fail
 noObjectFail t o = fail $ printf "When parsing %s expected Object but got %s." t o
 
+lookupField :: (Value -> Parser a) -> String -> String
+                -> Object -> T.Text -> Parser a
+lookupField pj tName rec obj key =
+      case H.lookup key obj of
+              Nothing -> unknownFieldFail tName rec (T.unpack key)
+              Just v  -> pj v <?> Key key
+
+unknownFieldFail :: String -> String -> String -> Parser fail
+unknownFieldFail tName rec key =
+      fail $ printf "When parsing the record %s of type %s the key %s was not present."
+                        rec tName key
+
 -- ToJSON/FromJSON instances. Some are defined by hand so that we have
 -- more control over the format.
 
@@ -631,37 +643,37 @@ instance FromJSON Citation where
              Object recObj_atC7
                -> ((((((Citation
                           <$>
-                            ((((Data.Aeson.TH.lookupField parseJSON)
+                            ((((lookupField parseJSON)
                                  "Text.Pandoc.Definition.Citation")
                                 "Citation")
                                recObj_atC7)
                               (T.pack "citationId"))
                          <*>
-                           ((((Data.Aeson.TH.lookupField parseJSON)
+                           ((((lookupField parseJSON)
                                 "Text.Pandoc.Definition.Citation")
                                "Citation")
                               recObj_atC7)
                              (T.pack "citationPrefix"))
                         <*>
-                          ((((Data.Aeson.TH.lookupField parseJSON)
+                          ((((lookupField parseJSON)
                                "Text.Pandoc.Definition.Citation")
                               "Citation")
                              recObj_atC7)
                             (T.pack "citationSuffix"))
                        <*>
-                         ((((Data.Aeson.TH.lookupField parseJSON)
+                         ((((lookupField parseJSON)
                               "Text.Pandoc.Definition.Citation")
                              "Citation")
                             recObj_atC7)
                            (T.pack "citationMode"))
                       <*>
-                        ((((Data.Aeson.TH.lookupField parseJSON)
+                        ((((lookupField parseJSON)
                              "Text.Pandoc.Definition.Citation")
                             "Citation")
                            recObj_atC7)
                           (T.pack "citationNoteNum"))
                      <*>
-                       ((((Data.Aeson.TH.lookupField parseJSON)
+                       ((((lookupField parseJSON)
                             "Text.Pandoc.Definition.Citation")
                            "Citation")
                           recObj_atC7)
