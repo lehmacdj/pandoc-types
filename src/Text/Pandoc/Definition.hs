@@ -359,6 +359,17 @@ data CitationMode = AuthorInText | SuppressAuthor | NormalCitation
                     deriving (Show, Eq, Ord, Read, Typeable, Data, Generic)
 
 
+-- Private functions from Data.Aeson.TH that we need to splice the code by hand
+
+-- | The name of the outermost 'Value' constructor.
+valueConName :: Value -> String
+valueConName (Object _) = "Object"
+valueConName (Array  _) = "Array"
+valueConName (String _) = "String"
+valueConName (Number _) = "Number"
+valueConName (Bool   _) = "Boolean"
+valueConName Null       = "Null"
+
 -- ToJSON/FromJSON instances. Some are defined by hand so that we have
 -- more control over the format.
 
@@ -491,7 +502,7 @@ instance FromJSON MetaValue where
                               (T.unpack conKey_atBq) }
              other_atBL
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.MetaValue")
-                    (Data.Aeson.TH.valueConName other_atBL)
+                    (valueConName other_atBL)
 instance ToJSON CitationMode where
   toJSON
     = \ value_atBM
@@ -541,7 +552,7 @@ instance FromJSON CitationMode where
              other_atBR
                -> (Data.Aeson.TH.noObjectFail
                      "Text.Pandoc.Definition.CitationMode")
-                    (Data.Aeson.TH.valueConName other_atBR)
+                    (valueConName other_atBR)
 instance ToJSON Citation where
   toJSON
     = \ value_atBS
@@ -647,7 +658,7 @@ instance FromJSON Citation where
                -> (((Data.Aeson.TH.parseTypeMismatch' "Citation")
                       "Text.Pandoc.Definition.Citation")
                      "Object")
-                    (Data.Aeson.TH.valueConName other_atC8)
+                    (valueConName other_atC8)
 instance ToJSON QuoteType where
   toJSON
     = \ value_atC9
@@ -687,7 +698,7 @@ instance FromJSON QuoteType where
                               (T.unpack conKey_atCd) }
              other_atCe
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.QuoteType")
-                    (Data.Aeson.TH.valueConName other_atCe)
+                    (valueConName other_atCe)
 instance ToJSON MathType where
   toJSON
     = \ value_atCf
@@ -727,7 +738,7 @@ instance FromJSON MathType where
                               (T.unpack conKey_atCj) }
              other_atCk
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.MathType")
-                    (Data.Aeson.TH.valueConName other_atCk)
+                    (valueConName other_atCk)
 instance ToJSON ListNumberStyle where
   toJSON
     = \ value_atCl
@@ -814,7 +825,7 @@ instance FromJSON ListNumberStyle where
              other_atCq
                -> (Data.Aeson.TH.noObjectFail
                      "Text.Pandoc.Definition.ListNumberStyle")
-                    (Data.Aeson.TH.valueConName other_atCq)
+                    (valueConName other_atCq)
 instance ToJSON ListNumberDelim where
   toJSON
     = \ value_atCr
@@ -873,7 +884,7 @@ instance FromJSON ListNumberDelim where
              other_atCw
                -> (Data.Aeson.TH.noObjectFail
                      "Text.Pandoc.Definition.ListNumberDelim")
-                    (Data.Aeson.TH.valueConName other_atCw)
+                    (valueConName other_atCw)
 instance ToJSON Alignment where
   toJSON
     = \ value_atCx
@@ -931,7 +942,7 @@ instance FromJSON Alignment where
                               (T.unpack conKey_atCB) }
              other_atCC
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Alignment")
-                    (Data.Aeson.TH.valueConName other_atCC)
+                    (valueConName other_atCC)
 instance ToJSON ColWidth where
   toJSON
     = \ value_atCD
@@ -980,7 +991,7 @@ instance FromJSON ColWidth where
                               (T.unpack conKey_atCJ) }
              other_atCM
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.ColWidth")
-                    (Data.Aeson.TH.valueConName other_atCM)
+                    (valueConName other_atCM)
 instance ToJSON Row where
   toJSON
     = \ value_atCN
@@ -1024,7 +1035,7 @@ instance FromJSON Row where
                -> (((Data.Aeson.TH.parseTypeMismatch' "Row")
                       "Text.Pandoc.Definition.Row")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atCW)
+                    (valueConName other_atCW)
 instance ToJSON Caption where
   toJSON
     = \ value_atCX
@@ -1068,7 +1079,7 @@ instance FromJSON Caption where
                -> (((Data.Aeson.TH.parseTypeMismatch' "Caption")
                       "Text.Pandoc.Definition.Caption")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atDi)
+                    (valueConName other_atDi)
 instance ToJSON TableHead where
   toJSON
     = \ value_atDj
@@ -1112,7 +1123,7 @@ instance FromJSON TableHead where
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableHead")
                       "Text.Pandoc.Definition.TableHead")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atDs)
+                    (valueConName other_atDs)
 instance ToJSON TableBody where
   toJSON
     = \ value_atDt
@@ -1173,7 +1184,7 @@ instance FromJSON TableBody where
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableBody")
                       "Text.Pandoc.Definition.TableBody")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atDG)
+                    (valueConName other_atDG)
 instance ToJSON TableFoot where
   toJSON
     = \ value_atDH
@@ -1217,7 +1228,7 @@ instance FromJSON TableFoot where
                -> (((Data.Aeson.TH.parseTypeMismatch' "TableFoot")
                       "Text.Pandoc.Definition.TableFoot")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atDQ)
+                    (valueConName other_atDQ)
 instance ToJSON Cell where
   toJSON
     = \ value_atDR
@@ -1286,7 +1297,7 @@ instance FromJSON Cell where
                -> (((Data.Aeson.TH.parseTypeMismatch' "Cell")
                       "Text.Pandoc.Definition.Cell")
                      "Array")
-                    (Data.Aeson.TH.valueConName other_atE6)
+                    (valueConName other_atE6)
 instance ToJSON Inline where
   toJSON
     = \ value_atE7
@@ -1740,7 +1751,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Quoted")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFu)
+                                        (valueConName other_atFu)
                          | (conKey_atFb == T.pack "Cite")
                          -> do val_atFv <- (obj_atFa .: T.pack "c")
                                case val_atFv of
@@ -1769,7 +1780,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Cite")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFx)
+                                        (valueConName other_atFx)
                          | (conKey_atFb == T.pack "Code")
                          -> do val_atFy <- (obj_atFa .: T.pack "c")
                                case val_atFy of
@@ -1798,7 +1809,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Code")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFA)
+                                        (valueConName other_atFA)
                          | (conKey_atFb == T.pack "Space") -> pure Space
                          | (conKey_atFb == T.pack "SoftBreak") -> pure SoftBreak
                          | (conKey_atFb == T.pack "LineBreak") -> pure LineBreak
@@ -1830,7 +1841,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Math")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFD)
+                                        (valueConName other_atFD)
                          | (conKey_atFb == T.pack "RawInline")
                          -> do val_atFE <- (obj_atFa .: T.pack "c")
                                case val_atFE of
@@ -1859,7 +1870,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "RawInline")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFG)
+                                        (valueConName other_atFG)
                          | (conKey_atFb == T.pack "Link")
                          -> do val_atFH <- (obj_atFa .: T.pack "c")
                                case val_atFH of
@@ -1893,7 +1904,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Link")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFJ)
+                                        (valueConName other_atFJ)
                          | (conKey_atFb == T.pack "Image")
                          -> do val_atFK <- (obj_atFa .: T.pack "c")
                                case val_atFK of
@@ -1927,7 +1938,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Image")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFM)
+                                        (valueConName other_atFM)
                          | (conKey_atFb == T.pack "Note")
                          -> do val_atFN <- (obj_atFa .: T.pack "c")
                                case val_atFN of { arg_atFO -> (Note <$> parseJSON arg_atFO) }
@@ -1959,7 +1970,7 @@ instance FromJSON Inline where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Span")
                                           "Text.Pandoc.Definition.Inline")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atFR)
+                                        (valueConName other_atFR)
                          | otherwise
                          -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
                                 "Text.Pandoc.Definition.Inline")
@@ -1970,7 +1981,7 @@ instance FromJSON Inline where
                               (T.unpack conKey_atFb) }
              other_atFS
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Inline")
-                    (Data.Aeson.TH.valueConName other_atFS)
+                    (valueConName other_atFS)
 instance ToJSON Block where
   toJSON
     = \ value_atFT
@@ -2323,7 +2334,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "CodeBlock")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atGW)
+                                        (valueConName other_atGW)
                          | (conKey_atGN == T.pack "RawBlock")
                          -> do val_atGX <- (obj_atGM .: T.pack "c")
                                case val_atGX of
@@ -2352,7 +2363,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "RawBlock")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atGZ)
+                                        (valueConName other_atGZ)
                          | (conKey_atGN == T.pack "BlockQuote")
                          -> do val_atH0 <- (obj_atGM .: T.pack "c")
                                case val_atH0 of {
@@ -2385,7 +2396,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "OrderedList")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atH4)
+                                        (valueConName other_atH4)
                          | (conKey_atGN == T.pack "BulletList")
                          -> do val_atH5 <- (obj_atGM .: T.pack "c")
                                case val_atH5 of {
@@ -2427,7 +2438,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Header")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atHb)
+                                        (valueConName other_atHb)
                          | (conKey_atGN == T.pack "HorizontalRule") -> pure HorizontalRule
                          | (conKey_atGN == T.pack "Table")
                          -> do val_atHc <- (obj_atGM .: T.pack "c")
@@ -2477,7 +2488,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Table")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atHe)
+                                        (valueConName other_atHe)
                          | (conKey_atGN == T.pack "Div")
                          -> do val_atHf <- (obj_atGM .: T.pack "c")
                                case val_atHf of
@@ -2506,7 +2517,7 @@ instance FromJSON Block where
                                    -> (((Data.Aeson.TH.parseTypeMismatch' "Div")
                                           "Text.Pandoc.Definition.Block")
                                          "Array")
-                                        (Data.Aeson.TH.valueConName other_atHh)
+                                        (valueConName other_atHh)
                          | (conKey_atGN == T.pack "Null") -> pure Null
                          | otherwise
                          -> ((Data.Aeson.TH.conNotFoundFailTaggedObject
@@ -2517,7 +2528,7 @@ instance FromJSON Block where
                               (T.unpack conKey_atGN) }
              other_atHi
                -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Block")
-                    (Data.Aeson.TH.valueConName other_atHi)
+                    (valueConName other_atHi)
 
 instance FromJSON Meta where
   parseJSON = fmap Meta . parseJSON
