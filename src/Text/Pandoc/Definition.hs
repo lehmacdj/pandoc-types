@@ -92,6 +92,7 @@ import qualified Data.Aeson.Encoding.Internal
 import qualified Data.Aeson.Types as Aeson
 import qualified Data.Aeson.Types
 import qualified Data.HashMap.Strict as H
+import Data.List (intercalate)
 import qualified Data.Map as M
 import Data.Text (Text)
 import qualified Data.Text as T
@@ -100,9 +101,8 @@ import Data.String
 import Control.DeepSeq
 import Paths_pandoc_types (version)
 import qualified Data.Vector
-import qualified Data.Vector.Mutable
 import Data.Version (Version, versionBranch)
-import Data.Semigroup (Semigroup(..))
+import Text.Printf (printf)
 
 data Pandoc = Pandoc Meta [Block]
               deriving (Eq, Ord, Read, Show, Typeable, Data, Generic)
@@ -363,12 +363,12 @@ data CitationMode = AuthorInText | SuppressAuthor | NormalCitation
 
 -- | The name of the outermost 'Value' constructor.
 valueConName :: Value -> String
-valueConName (Object _) = "Object"
-valueConName (Array  _) = "Array"
-valueConName (String _) = "String"
-valueConName (Number _) = "Number"
-valueConName (Bool   _) = "Boolean"
-valueConName Null       = "Null"
+valueConName (Object _)            = "Object"
+valueConName (Array  _)            = "Array"
+valueConName (String _)            = "String"
+valueConName (Number _)            = "Number"
+valueConName (Bool   _)            = "Boolean"
+valueConName Data.Aeson.Types.Null = "Null"
 
 parseTypeMismatch' :: String -> String -> String -> String -> Data.Aeson.Types.Parser fail
 parseTypeMismatch' conName tName expected actual =
@@ -388,7 +388,7 @@ lookupField :: (Value -> Data.Aeson.Types.Parser a) -> String -> String
 lookupField pj tName rec obj key =
       case H.lookup key obj of
               Nothing -> unknownFieldFail tName rec (T.unpack key)
-              Just v  -> pj v <?> Key key
+              Just v  -> pj v <?> Data.Aeson.Types.Key key
 
 unknownFieldFail :: String -> String -> String -> Data.Aeson.Types.Parser fail
 unknownFieldFail tName rec key =
@@ -399,51 +399,6 @@ unknownFieldFail tName rec key =
 -- more control over the format.
 
 instance ToJSON MetaValue where
-  toJSON
-    = \ value_atzE
-        -> case value_atzE of
-             MetaMap arg1_atAZ
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaMap"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atAZ))
-             MetaList arg1_atB4
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaList"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atB4))
-             MetaBool arg1_atB5
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaBool"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atB5))
-             MetaString arg1_atB6
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaString"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atB6))
-             MetaInlines arg1_atB7
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaInlines"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atB7))
-             MetaBlocks arg1_atB8
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "MetaBlocks"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atB8))
   toEncoding
     = \ value_atB9
         -> case value_atB9 of
@@ -529,21 +484,6 @@ instance FromJSON MetaValue where
                -> (noObjectFail "Text.Pandoc.Definition.MetaValue")
                     (valueConName other_atBL)
 instance ToJSON CitationMode where
-  toJSON
-    = \ value_atBM
-        -> case value_atBM of
-             AuthorInText
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "AuthorInText")))
-             SuppressAuthor
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "SuppressAuthor")))
-             NormalCitation
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "NormalCitation")))
   toEncoding
     = \ value_atBN
         -> case value_atBN of
@@ -579,35 +519,6 @@ instance FromJSON CitationMode where
                      "Text.Pandoc.Definition.CitationMode")
                     (valueConName other_atBR)
 instance ToJSON Citation where
-  toJSON
-    = \ value_atBS
-        -> case value_atBS of {
-             Citation arg1_atBT
-                      arg2_atBU
-                      arg3_atBV
-                      arg4_atBW
-                      arg5_atBX
-                      arg6_atBY
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "citationId")
-                       (toJSON arg1_atBT)
-                       <>
-                         ((Data.Aeson.Encoding.Internal.pair "citationPrefix")
-                            (toJSON arg2_atBU)
-                            <>
-                              ((Data.Aeson.Encoding.Internal.pair "citationSuffix")
-                                 (toJSON arg3_atBV)
-                                 <>
-                                   ((Data.Aeson.Encoding.Internal.pair "citationMode")
-                                      (toJSON arg4_atBW)
-                                      <>
-                                        ((Data.Aeson.Encoding.Internal.pair
-                                            "citationNoteNum")
-                                           (toJSON arg5_atBX)
-                                           <>
-                                             (Data.Aeson.Encoding.Internal.pair
-                                                "citationHash")
-                                               (toJSON arg6_atBY)))))) }
   toEncoding
     = \ value_atBZ
         -> case value_atBZ of {
@@ -685,17 +596,6 @@ instance FromJSON Citation where
                      "Object")
                     (valueConName other_atC8)
 instance ToJSON QuoteType where
-  toJSON
-    = \ value_atC9
-        -> case value_atC9 of
-             SingleQuote
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "SingleQuote")))
-             DoubleQuote
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "DoubleQuote")))
   toEncoding
     = \ value_atCa
         -> case value_atCa of
@@ -725,17 +625,6 @@ instance FromJSON QuoteType where
                -> (noObjectFail "Text.Pandoc.Definition.QuoteType")
                     (valueConName other_atCe)
 instance ToJSON MathType where
-  toJSON
-    = \ value_atCf
-        -> case value_atCf of
-             DisplayMath
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "DisplayMath")))
-             InlineMath
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "InlineMath")))
   toEncoding
     = \ value_atCg
         -> case value_atCg of
@@ -765,37 +654,6 @@ instance FromJSON MathType where
                -> (noObjectFail "Text.Pandoc.Definition.MathType")
                     (valueConName other_atCk)
 instance ToJSON ListNumberStyle where
-  toJSON
-    = \ value_atCl
-        -> case value_atCl of
-             DefaultStyle
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "DefaultStyle")))
-             Example
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Example")))
-             Decimal
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Decimal")))
-             LowerRoman
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "LowerRoman")))
-             UpperRoman
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "UpperRoman")))
-             LowerAlpha
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "LowerAlpha")))
-             UpperAlpha
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "UpperAlpha")))
   toEncoding
     = \ value_atCm
         -> case value_atCm of
@@ -852,25 +710,6 @@ instance FromJSON ListNumberStyle where
                      "Text.Pandoc.Definition.ListNumberStyle")
                     (valueConName other_atCq)
 instance ToJSON ListNumberDelim where
-  toJSON
-    = \ value_atCr
-        -> case value_atCr of
-             DefaultDelim
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "DefaultDelim")))
-             Period
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Period")))
-             OneParen
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "OneParen")))
-             TwoParens
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "TwoParens")))
   toEncoding
     = \ value_atCs
         -> case value_atCs of
@@ -911,25 +750,6 @@ instance FromJSON ListNumberDelim where
                      "Text.Pandoc.Definition.ListNumberDelim")
                     (valueConName other_atCw)
 instance ToJSON Alignment where
-  toJSON
-    = \ value_atCx
-        -> case value_atCx of
-             AlignLeft
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "AlignLeft")))
-             AlignRight
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "AlignRight")))
-             AlignCenter
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "AlignCenter")))
-             AlignDefault
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "AlignDefault")))
   toEncoding
     = \ value_atCy
         -> case value_atCy of
@@ -969,20 +789,6 @@ instance FromJSON Alignment where
                -> (noObjectFail "Text.Pandoc.Definition.Alignment")
                     (valueConName other_atCC)
 instance ToJSON ColWidth where
-  toJSON
-    = \ value_atCD
-        -> case value_atCD of
-             ColWidth arg1_atCE
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "ColWidth"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atCE))
-             ColWidthDefault
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "ColWidthDefault")))
   toEncoding
     = \ value_atCF
         -> case value_atCF of
@@ -1018,18 +824,6 @@ instance FromJSON ColWidth where
                -> (noObjectFail "Text.Pandoc.Definition.ColWidth")
                     (valueConName other_atCM)
 instance ToJSON Row where
-  toJSON
-    = \ value_atCN
-        -> case value_atCN of {
-             Row arg1_atCO arg2_atCP
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atCQ <- Data.Vector.Mutable.unsafeNew 2
-                           ((Data.Vector.Mutable.unsafeWrite mv_atCQ) 0)
-                             (toJSON arg1_atCO)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atCQ) 1)
-                             (toJSON arg2_atCP)
-                           return mv_atCQ)) }
   toEncoding
     = \ value_atCR
         -> case value_atCR of {
@@ -1062,18 +856,6 @@ instance FromJSON Row where
                      "Array")
                     (valueConName other_atCW)
 instance ToJSON Caption where
-  toJSON
-    = \ value_atCX
-        -> case value_atCX of {
-             Caption arg1_atD0 arg2_atD1
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atD2 <- Data.Vector.Mutable.unsafeNew 2
-                           ((Data.Vector.Mutable.unsafeWrite mv_atD2) 0)
-                             (toJSON arg1_atD0)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atD2) 1)
-                             (toJSON arg2_atD1)
-                           return mv_atD2)) }
   toEncoding
     = \ value_atD5
         -> case value_atD5 of {
@@ -1106,18 +888,6 @@ instance FromJSON Caption where
                      "Array")
                     (valueConName other_atDi)
 instance ToJSON TableHead where
-  toJSON
-    = \ value_atDj
-        -> case value_atDj of {
-             TableHead arg1_atDk arg2_atDl
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atDm <- Data.Vector.Mutable.unsafeNew 2
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDm) 0)
-                             (toJSON arg1_atDk)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDm) 1)
-                             (toJSON arg2_atDl)
-                           return mv_atDm)) }
   toEncoding
     = \ value_atDn
         -> case value_atDn of {
@@ -1150,22 +920,6 @@ instance FromJSON TableHead where
                      "Array")
                     (valueConName other_atDs)
 instance ToJSON TableBody where
-  toJSON
-    = \ value_atDt
-        -> case value_atDt of {
-             TableBody arg1_atDu arg2_atDv arg3_atDw arg4_atDx
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atDy <- Data.Vector.Mutable.unsafeNew 4
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 0)
-                             (toJSON arg1_atDu)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 1)
-                             (toJSON arg2_atDv)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 2)
-                             (toJSON arg3_atDw)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDy) 3)
-                             (toJSON arg4_atDx)
-                           return mv_atDy)) }
   toEncoding
     = \ value_atDz
         -> case value_atDz of {
@@ -1211,18 +965,6 @@ instance FromJSON TableBody where
                      "Array")
                     (valueConName other_atDG)
 instance ToJSON TableFoot where
-  toJSON
-    = \ value_atDH
-        -> case value_atDH of {
-             TableFoot arg1_atDI arg2_atDJ
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atDK <- Data.Vector.Mutable.unsafeNew 2
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDK) 0)
-                             (toJSON arg1_atDI)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDK) 1)
-                             (toJSON arg2_atDJ)
-                           return mv_atDK)) }
   toEncoding
     = \ value_atDL
         -> case value_atDL of {
@@ -1255,24 +997,6 @@ instance FromJSON TableFoot where
                      "Array")
                     (valueConName other_atDQ)
 instance ToJSON Cell where
-  toJSON
-    = \ value_atDR
-        -> case value_atDR of {
-             Cell arg1_atDS arg2_atDT arg3_atDU arg4_atDV arg5_atDW
-               -> Array
-                    (Data.Vector.create
-                       (do mv_atDX <- Data.Vector.Mutable.unsafeNew 5
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 0)
-                             (toJSON arg1_atDS)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 1)
-                             (toJSON arg2_atDT)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 2)
-                             (toJSON arg3_atDU)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 3)
-                             (toJSON arg4_atDV)
-                           ((Data.Vector.Mutable.unsafeWrite mv_atDX) 4)
-                             (toJSON arg5_atDW)
-                           return mv_atDX)) }
   toEncoding
     = \ value_atDY
         -> case value_atDY of {
@@ -1324,218 +1048,6 @@ instance FromJSON Cell where
                      "Array")
                     (valueConName other_atE6)
 instance ToJSON Inline where
-  toJSON
-    = \ value_atE7
-        -> case value_atE7 of
-             Str arg1_atE8
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Str"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atE8))
-             Emph arg1_atE9
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Emph"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atE9))
-             Underline arg1_atEa
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Underline"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEa))
-             Strong arg1_atEb
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Strong"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEb))
-             Strikeout arg1_atEc
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Strikeout"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEc))
-             Superscript arg1_atEd
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Superscript"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEd))
-             Subscript arg1_atEe
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Subscript"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEe))
-             SmallCaps arg1_atEf
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "SmallCaps"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atEf))
-             Quoted arg1_atEg arg2_atEh
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Quoted"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEi <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEi)
-                                        0)
-                                       (toJSON arg1_atEg)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEi)
-                                        1)
-                                       (toJSON arg2_atEh)
-                                     return mv_atEi))))
-             Cite arg1_atEj arg2_atEk
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Cite"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEl <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEl)
-                                        0)
-                                       (toJSON arg1_atEj)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEl)
-                                        1)
-                                       (toJSON arg2_atEk)
-                                     return mv_atEl))))
-             Code arg1_atEm arg2_atEn
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Code"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEo <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEo)
-                                        0)
-                                       (toJSON arg1_atEm)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEo)
-                                        1)
-                                       (toJSON arg2_atEn)
-                                     return mv_atEo))))
-             Space
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Space")))
-             SoftBreak
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "SoftBreak")))
-             LineBreak
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "LineBreak")))
-             Math arg1_atEp arg2_atEq
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Math"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEr <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEr)
-                                        0)
-                                       (toJSON arg1_atEp)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEr)
-                                        1)
-                                       (toJSON arg2_atEq)
-                                     return mv_atEr))))
-             RawInline arg1_atEs arg2_atEt
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "RawInline"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEu <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEu)
-                                        0)
-                                       (toJSON arg1_atEs)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEu)
-                                        1)
-                                       (toJSON arg2_atEt)
-                                     return mv_atEu))))
-             Link arg1_atEv arg2_atEw arg3_atEx
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Link"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEy <- Data.Vector.Mutable.unsafeNew 3
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
-                                        0)
-                                       (toJSON arg1_atEv)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
-                                        1)
-                                       (toJSON arg2_atEw)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEy)
-                                        2)
-                                       (toJSON arg3_atEx)
-                                     return mv_atEy))))
-             Image arg1_atEz arg2_atEA arg3_atEB
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Image"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEC <- Data.Vector.Mutable.unsafeNew 3
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
-                                        0)
-                                       (toJSON arg1_atEz)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
-                                        1)
-                                       (toJSON arg2_atEA)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEC)
-                                        2)
-                                       (toJSON arg3_atEB)
-                                     return mv_atEC))))
-             Note arg1_atED
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Note"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atED))
-             Span arg1_atEE arg2_atEF
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Span"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atEG <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEG)
-                                        0)
-                                       (toJSON arg1_atEE)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atEG)
-                                        1)
-                                       (toJSON arg2_atEF)
-                                     return mv_atEG))))
   toEncoding
     = \ value_atEH
         -> case value_atEH of
@@ -2008,170 +1520,6 @@ instance FromJSON Inline where
                -> (noObjectFail "Text.Pandoc.Definition.Inline")
                     (valueConName other_atFS)
 instance ToJSON Block where
-  toJSON
-    = \ value_atFT
-        -> case value_atFT of
-             Plain arg1_atFU
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Plain"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atFU))
-             Para arg1_atFV
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Para"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atFV))
-             LineBlock arg1_atFW
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "LineBlock"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atFW))
-             CodeBlock arg1_atFX arg2_atFY
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "CodeBlock"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atFZ <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atFZ)
-                                        0)
-                                       (toJSON arg1_atFX)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atFZ)
-                                        1)
-                                       (toJSON arg2_atFY)
-                                     return mv_atFZ))))
-             RawBlock arg1_atG0 arg2_atG1
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "RawBlock"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atG2 <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atG2)
-                                        0)
-                                       (toJSON arg1_atG0)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atG2)
-                                        1)
-                                       (toJSON arg2_atG1)
-                                     return mv_atG2))))
-             BlockQuote arg1_atG3
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "BlockQuote"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atG3))
-             OrderedList arg1_atG4 arg2_atG5
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "OrderedList"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atG6 <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atG6)
-                                        0)
-                                       (toJSON arg1_atG4)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atG6)
-                                        1)
-                                       (toJSON arg2_atG5)
-                                     return mv_atG6))))
-             BulletList arg1_atG7
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "BulletList"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atG7))
-             DefinitionList arg1_atG8
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "DefinitionList"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (toJSON arg1_atG8))
-             Header arg1_atG9 arg2_atGa arg3_atGb
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Header"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atGc <- Data.Vector.Mutable.unsafeNew 3
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
-                                        0)
-                                       (toJSON arg1_atG9)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
-                                        1)
-                                       (toJSON arg2_atGa)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGc)
-                                        2)
-                                       (toJSON arg3_atGb)
-                                     return mv_atGc))))
-             HorizontalRule
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "HorizontalRule")))
-             Table arg1_atGd arg2_atGe arg3_atGf arg4_atGg arg5_atGh arg6_atGi
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Table"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atGj <- Data.Vector.Mutable.unsafeNew 6
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        0)
-                                       (toJSON arg1_atGd)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        1)
-                                       (toJSON arg2_atGe)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        2)
-                                       (toJSON arg3_atGf)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        3)
-                                       (toJSON arg4_atGg)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        4)
-                                       (toJSON arg5_atGh)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGj)
-                                        5)
-                                       (toJSON arg6_atGi)
-                                     return mv_atGj))))
-             Div arg1_atGk arg2_atGl
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Div"))
-                       <>
-                         (Data.Aeson.Encoding.Internal.pair "c")
-                           (Array
-                              (Data.Vector.create
-                                 (do mv_atGm <- Data.Vector.Mutable.unsafeNew 2
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGm)
-                                        0)
-                                       (toJSON arg1_atGk)
-                                     ((Data.Vector.Mutable.unsafeWrite mv_atGm)
-                                        1)
-                                       (toJSON arg2_atGl)
-                                     return mv_atGm))))
-             Null
-               -> Data.Aeson.Encoding.Internal.pairs
-                    ((Data.Aeson.Encoding.Internal.pair "t")
-                       (String (T.pack "Null")))
   toEncoding
     = \ value_atGn
         -> case value_atGn of
