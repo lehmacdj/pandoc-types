@@ -88,7 +88,6 @@ module Text.Pandoc.Definition ( Pandoc(..)
 import Data.Generics (Data, Typeable)
 import Data.Ord (comparing)
 import Data.Aeson hiding (Null)
-import Data.Aeson.TH (deriveJSON)
 import qualified Data.Aeson.Encoding.Internal
 import qualified Data.Aeson.Types as Aeson
 import qualified Data.Aeson.Types
@@ -380,6 +379,9 @@ conNotFoundFailTaggedObject t cs o =
       fail $ printf "When parsing %s expected an Object with a tag field where the value is one of [%s], but got %s."
                         t (intercalate ", " cs) o
 
+noObjectFail :: String -> String -> Parser fail
+noObjectFail t o = fail $ printf "When parsing %s expected Object but got %s." t o
+
 -- ToJSON/FromJSON instances. Some are defined by hand so that we have
 -- more control over the format.
 
@@ -511,7 +513,7 @@ instance FromJSON MetaValue where
                                 "MetaBlocks"])
                               (T.unpack conKey_atBq) }
              other_atBL
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.MetaValue")
+               -> (noObjectFail "Text.Pandoc.Definition.MetaValue")
                     (valueConName other_atBL)
 instance ToJSON CitationMode where
   toJSON
@@ -560,7 +562,7 @@ instance FromJSON CitationMode where
                                ["AuthorInText", "SuppressAuthor", "NormalCitation"])
                               (T.unpack conKey_atBQ) }
              other_atBR
-               -> (Data.Aeson.TH.noObjectFail
+               -> (noObjectFail
                      "Text.Pandoc.Definition.CitationMode")
                     (valueConName other_atBR)
 instance ToJSON Citation where
@@ -707,7 +709,7 @@ instance FromJSON QuoteType where
                                ["SingleQuote", "DoubleQuote"])
                               (T.unpack conKey_atCd) }
              other_atCe
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.QuoteType")
+               -> (noObjectFail "Text.Pandoc.Definition.QuoteType")
                     (valueConName other_atCe)
 instance ToJSON MathType where
   toJSON
@@ -747,7 +749,7 @@ instance FromJSON MathType where
                                ["DisplayMath", "InlineMath"])
                               (T.unpack conKey_atCj) }
              other_atCk
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.MathType")
+               -> (noObjectFail "Text.Pandoc.Definition.MathType")
                     (valueConName other_atCk)
 instance ToJSON ListNumberStyle where
   toJSON
@@ -833,7 +835,7 @@ instance FromJSON ListNumberStyle where
                                 "UpperRoman", "LowerAlpha", "UpperAlpha"])
                               (T.unpack conKey_atCp) }
              other_atCq
-               -> (Data.Aeson.TH.noObjectFail
+               -> (noObjectFail
                      "Text.Pandoc.Definition.ListNumberStyle")
                     (valueConName other_atCq)
 instance ToJSON ListNumberDelim where
@@ -892,7 +894,7 @@ instance FromJSON ListNumberDelim where
                                ["DefaultDelim", "Period", "OneParen", "TwoParens"])
                               (T.unpack conKey_atCv) }
              other_atCw
-               -> (Data.Aeson.TH.noObjectFail
+               -> (noObjectFail
                      "Text.Pandoc.Definition.ListNumberDelim")
                     (valueConName other_atCw)
 instance ToJSON Alignment where
@@ -951,7 +953,7 @@ instance FromJSON Alignment where
                                ["AlignLeft", "AlignRight", "AlignCenter", "AlignDefault"])
                               (T.unpack conKey_atCB) }
              other_atCC
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Alignment")
+               -> (noObjectFail "Text.Pandoc.Definition.Alignment")
                     (valueConName other_atCC)
 instance ToJSON ColWidth where
   toJSON
@@ -1000,7 +1002,7 @@ instance FromJSON ColWidth where
                                ["ColWidth", "ColWidthDefault"])
                               (T.unpack conKey_atCJ) }
              other_atCM
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.ColWidth")
+               -> (noObjectFail "Text.Pandoc.Definition.ColWidth")
                     (valueConName other_atCM)
 instance ToJSON Row where
   toJSON
@@ -1990,7 +1992,7 @@ instance FromJSON Inline where
                                 "Link", "Image", "Note", "Span"])
                               (T.unpack conKey_atFb) }
              other_atFS
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Inline")
+               -> (noObjectFail "Text.Pandoc.Definition.Inline")
                     (valueConName other_atFS)
 instance ToJSON Block where
   toJSON
@@ -2537,7 +2539,7 @@ instance FromJSON Block where
                                 "Header", "HorizontalRule", "Table", "Div", "Null"])
                               (T.unpack conKey_atGN) }
              other_atHi
-               -> (Data.Aeson.TH.noObjectFail "Text.Pandoc.Definition.Block")
+               -> (noObjectFail "Text.Pandoc.Definition.Block")
                     (valueConName other_atHi)
 
 instance FromJSON Meta where
